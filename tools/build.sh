@@ -7,36 +7,32 @@ ISO_NAME="$1"
 PROJECT_ROOT="$(dirname "$(realpath "$0")")/.."
 CONFIG_DIR="$PROJECT_ROOT/configs/$ISO_NAME"
 
-# Source config to get base profile
+# Refresh templates before build
+"$PROJECT_ROOT/tools/update-templates.sh"
+
+# Source base profile
 source "$CONFIG_DIR/config.sh"
 BASE_RELENG="$PROJECT_ROOT/templates/$BASE_PROFILE"
 BUILD_DIR="/tmp/mkarchiso-$ISO_NAME-build"
 
-echo "📦 Building ISO: $ISO_NAME"
-echo "🔧 Using base profile: $BASE_PROFILE"
-echo "📁 Base: $BASE_RELENG"
-echo "📁 Overlay: $CONFIG_DIR/releng/overlay"
-
-# Clean build dir
+echo "📦 Building ISO: $ISO_NAME using base: $BASE_PROFILE"
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
 
-# Copy base template to working directory
 cp -a "$BASE_RELENG/" "$BUILD_DIR/"
 
-# Merge overlay files into base releng
+# Merge overlay
 if [[ -d "$CONFIG_DIR/releng/overlay" ]]; then
-  echo "📁 Merging overlay into releng..."
+  echo "📁 Applying overlay..."
   cp -ar "$CONFIG_DIR/releng/overlay/"* "$BUILD_DIR/" || true
 fi
 
-# Append packages
+# Append extra packages
 if [[ -f "$CONFIG_DIR/releng/overlay/packages.x86_64" ]]; then
-  echo "📦 Appending extra packages to packages.x86_64..."
+  echo "📦 Appending packages..."
   cat "$CONFIG_DIR/releng/overlay/packages.x86_64" >> "$BUILD_DIR/packages.x86_64"
 fi
 
-# Build the ISO
 mkarchiso -v -w "$BUILD_DIR/work" -o "$PROJECT_ROOT/out" "$BUILD_DIR"
 
-echo "✅ Build complete: $PROJECT_ROOT/out/"
+echo "✅ ISO build complete"
