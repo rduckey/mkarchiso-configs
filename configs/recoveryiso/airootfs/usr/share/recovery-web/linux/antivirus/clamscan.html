@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ClamAV Scan</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; padding: 20px; background-color: #1e1e2e; color: #f5f5f5; }
+        h1 { text-align: center; margin-bottom: 20px; }
+        .launch-button { display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: #008080; color: #fff; border-radius: 4px; text-decoration: none; }
+        .launch-button:hover { background-color: #006060; }
+        pre { background-color: #2e2e3f; padding: 10px; border-radius: 4px; overflow-x: auto; }
+        a.back { display: block; margin-top: 20px; color: #8cfaf3; }
+    </style>
+</head>
+<body>
+    <h1>ClamAV Scan</h1>
+    <p>Scan filesystems for viruses using clamscan.</p>
+    <a class="launch-button" href="/usr/local/share/scripts/linux/antivirus/clamscan.sh">Launch ClamAV Scan</a>
+    <h2>Documentation</h2>
+    <p>This script runs clamscan on a specified directory or device. It can optionally remove or quarantine infected files.</p>
+    <h2>Usage Examples</h2>
+    <pre>Provide the path to scan when prompted. The script will display scan results.</pre>
+    <a class="back" href="index.html">Back to Antivirus</a>
+</body>
+</html>

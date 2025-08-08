@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Recovery Toolkit
-Exec=/home/liveuser/scripts/recovery-toolkit.sh
-X-GNOME-Autostart-enabled=true

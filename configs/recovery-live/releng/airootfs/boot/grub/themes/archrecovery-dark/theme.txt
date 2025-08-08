@@ -1,7 +1,0 @@
-title-text: "Arch Recovery"
-title-color: white
-desktop-color: black
-terminal-left: 0
-terminal-top: 0
-terminal-width: 80
-terminal-height: 25

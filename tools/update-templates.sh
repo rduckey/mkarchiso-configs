@@ -15,12 +15,12 @@ LATEST_HASH=$(git ls-remote "$UPSTREAM_URL" refs/heads/master | cut -f1)
 if [[ -f "$VERSION_FILE" ]]; then
     CURRENT_HASH=$(grep "^upstream_commit=" "$VERSION_FILE" | cut -d= -f2)
     if [[ "$LATEST_HASH" == "$CURRENT_HASH" ]]; then
-        echo "✅ Templates already up to date (commit $CURRENT_HASH)"
+        echo "✅ Templates up to date"
         exit 0
     fi
 fi
 
-echo "🔁 Updating templates to commit: $LATEST_HASH"
+echo "🔁 Updating templates"
 
 # Clone upstream repo shallowly
 rm -rf "$TMP_REPO"
@@ -42,4 +42,4 @@ upstream_commit=$LATEST_HASH
 last_sync=$(date -Iseconds)
 EOF
 
-echo "✅ Templates updated to $LATEST_HASH"
+echo "✅ Templates updated"
