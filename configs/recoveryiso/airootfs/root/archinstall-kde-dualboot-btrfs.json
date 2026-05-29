@@ -1,0 +1,98 @@
+{
+  "archinstall-language": "English",
+  "audio_config": {
+    "audio": "pipewire"
+  },
+  "bootloader_config": {
+    "bootloader": "grub",
+    "removable": false,
+    "uki": false
+  },
+  "custom_commands": [
+    "systemctl enable NetworkManager.service",
+    "systemctl enable sddm.service",
+    "systemctl enable bluetooth.service",
+    "systemctl enable cups.service",
+    "systemctl enable snapper-timeline.timer",
+    "systemctl enable snapper-cleanup.timer",
+    "systemctl enable grub-btrfsd.service",
+    "bash -lc \"snapper -c root create-config / || true\"",
+    "bash -lc \"grep -q '^GRUB_DISABLE_OS_PROBER=' /etc/default/grub && sed -i 's/^GRUB_DISABLE_OS_PROBER=.*/GRUB_DISABLE_OS_PROBER=false/' /etc/default/grub || echo 'GRUB_DISABLE_OS_PROBER=false' >> /etc/default/grub\"",
+    "bash -lc \"grep -q grub-btrfs-overlayfs /etc/mkinitcpio.conf || sed -i 's/^HOOKS=(/HOOKS=(grub-btrfs-overlayfs /' /etc/mkinitcpio.conf\"",
+    "mkinitcpio -P",
+    "grub-mkconfig -o /boot/grub/grub.cfg"
+  ],
+  "debug": false,
+  "disk_config": {
+    "config_type": "pre_mounted_config",
+    "mountpoint": "/mnt/archinstall"
+  },
+  "hostname": "arch-kde-dualboot",
+  "kernels": [
+    "linux",
+    "linux-lts"
+  ],
+  "locale_config": {
+    "kb_layout": "us",
+    "sys_enc": "UTF-8",
+    "sys_lang": "en_US"
+  },
+  "mirror_config": {
+    "mirror_regions": {
+      "United States": []
+    },
+    "optional_repositories": [
+      "multilib"
+    ]
+  },
+  "network_config": {},
+  "no_pkg_lookups": false,
+  "ntp": true,
+  "offline": false,
+  "packages": [
+    "base-devel",
+    "bash-completion",
+    "bluez",
+    "bluez-utils",
+    "btrfs-assistant",
+    "btrfs-progs",
+    "cups",
+    "dolphin",
+    "firefox",
+    "git",
+    "grub",
+    "grub-btrfs",
+    "htop",
+    "inotify-tools",
+    "kate",
+    "konsole",
+    "networkmanager",
+    "networkmanager-qt",
+    "ntfs-3g",
+    "os-prober",
+    "reflector",
+    "snap-pac",
+    "snapper",
+    "sudo",
+    "vim",
+    "wget"
+  ],
+  "parallel downloads": 5,
+  "profile_config": {
+    "gfx_driver": "All open-source (default)",
+    "greeter": "sddm",
+    "profile": {
+      "details": [
+        "KDE Plasma"
+      ],
+      "main": "Desktop"
+    }
+  },
+  "script": "guided",
+  "silent": true,
+  "swap": {
+    "algorithm": "zstd",
+    "enabled": true
+  },
+  "timezone": "America/New_York"
+}
